@@ -23,11 +23,11 @@ export class UsersService {
         // }
     }
     //problème avec cette fonction ça ne veut pas creer ?
-    static async createPrismaUser( userId: number, userEmail : string){
+    static async createPrismaUser(userEmail : string, userName? : string){
         const user = await prisma.users.create({
           data : {
-            id: userId,
             email: userEmail,
+            name : userName
           }
         })
     }

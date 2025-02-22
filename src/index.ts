@@ -38,20 +38,28 @@ app.get("/me/movies", async (req: Request, res: Response) => {
   res.send(user);
 });
 
+//ajoute et affiche les utilisateur faut s'inspirer pour les movie etc
 app.get("/me/movie/create", async (req: Request, res: Response) => {
-  // await UsersService.createPrismaUser(1,'al@pipi.fr');
+  await UsersService.createPrismaUser('al@pipi.fr', 'akinator');
   const allUsers = await prisma.users.findMany();
   console.log(allUsers);
   res.send(allUsers);
 
 })
-//ça ne veut pas afficher ? 
+//affiche tout les utilisateur améliorer pour afficher l'utilisateur avec ses films
 app.get("/me/movie/poster", async (req: Request, res: Response) => {
-  const allUsers = await prisma.users.findMany();
-  console.log(allUsers);
-  res.send(allUsers);
-}) 
+  try {
+    const allUsers = await prisma.users.findMany();
+    console.log(allUsers); 
+    res.send(allUsers);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des utilisateurs:", error);
+    res.status(500).send("Erreur serveur");
+  }
+});
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+//ameliorer Prisma pour faire un model relationel puis tester
