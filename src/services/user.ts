@@ -13,13 +13,23 @@ export class UsersService {
     }
 
     static async  getById(userId: string) {
-        const user = await prisma.user.findFirst();
+        const user = await prisma.users.findMany();
+        prisma.movies
         return user;
         // return {
         //     id: userId,
         //     nickname: "Henrymoumou",
         //     moviesIds: [2, 57]
         // }
+    }
+    //problème avec cette fonction ça ne veut pas creer ?
+    static async createPrismaUser( userId: number, userEmail : string){
+        const user = await prisma.users.create({
+          data : {
+            id: userId,
+            email: userEmail,
+          }
+        })
     }
 }
 
