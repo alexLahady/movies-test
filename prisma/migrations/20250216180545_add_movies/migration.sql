@@ -27,3 +27,24 @@ CREATE TABLE "Movies" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+
+/*
+// A refaire correctement avant de migrate
+// Définir le modèle User
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String
+  movies Movie[] // en relation avec un ou plusieurs films
+}
+
+// Définir le modèle Movie
+model Movie {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  userId      Int
+  user        User   @relation(fields: [userId], references: [id]) // en relation avec l'utilisateur
+}
+
+*/
