@@ -12,7 +12,11 @@ export class MoviesService {
     }
 
     public async getOne(movieId : number) {
-        return await prisma.movies.findUnique(movieId);
+        return await prisma.movies.findUnique({
+            where: {
+                id : movieId,
+            },
+        })
     }
 
 }

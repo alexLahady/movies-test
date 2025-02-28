@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 
 export class UsersService {
     public async getById(userId: number) {
-        return await prisma.users.findUnique(userId);
+        return await prisma.users.findUnique({
+          where: {
+            id: userId,
+          },
+        });
     }
     
     //améliorer pour eviter les doublons et mettre un mdp
