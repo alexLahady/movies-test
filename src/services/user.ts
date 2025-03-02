@@ -1,6 +1,6 @@
 import { prisma } from "./prisma";
-// import bcrypt from 'bcrypt'; // marche pas utiliser require en attendant
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+
 
 export class UsersService {
     public async getById(userId: number) {
@@ -23,8 +23,8 @@ export class UsersService {
         })
     }
 
-    public async login(userEmail : string){// rajouter password dans les parametres plus tard
-        const user = await prisma.users.findUnique({
+    public async login(userEmail : string, password : string){// rajouter password dans les parametres plus tard
+        return await prisma.users.findUnique({
             where: {
                 email: userEmail,
               },
@@ -32,18 +32,8 @@ export class UsersService {
                 id : true,
                 //password : true,
               },
+
         });
-
-        if(user != null) {
-            //le cas ou le mdp existe
-            // const isPasswordValid = await bcrypt.compare(password, user.password); //pour verifier le mdp
-            //token avec jwt
-            return user;
-        }
-        else{ 
-            console.log('Erreur');
-        }
-
     }
 }
 
