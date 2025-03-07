@@ -2,8 +2,9 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
-import userRoutes from './routes/user' //@ ne marche pas trouver pourquoi plus tard 
-import movieRoutes from './routes/movie'; //@ ne marche pas trouver pourquoi plus tard 
+import userRoutes from '@routes/user'; 
+import movieRoutes from '@routes/movie';
+import apiRoute from '@routes/api';
 
 import cookieParser from "cookie-parser";
 
@@ -12,21 +13,11 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.cookie('cookieName','alex', { maxAge: 900000, httpOnly: true });
-  res.send("Express + TypeScript Server caca");
-});
-
-// app.get("/me/movie", async (req: Request, res: Response) => {
-  // console.log(req.cookies.cookieName);
-  // Récupération utilisateur userId
-  //const userId = '42';
-  //res.send(userId);
-// });
-
+app.use('/', apiRoute);
 app.use('/me/movies',movieRoutes);
 app.use('/users',userRoutes);
 

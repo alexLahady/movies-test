@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export class UsersService {
     public async getById(userId: number) {
-        return await prisma.users.findUnique({
+        return await prisma.user.findUnique({
           where: {
             id: userId,
           },
@@ -12,25 +12,25 @@ export class UsersService {
     }
     
     //améliorer pour eviter les doublons et mettre un mdp
-    public async createPrismaUser(userEmail : string, userName? : string){// rajouter password dans les parametres plus tard
-        // const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await prisma.users.create({
+    public async singnup(userEmail : string, userName  : string, userPassword : string){// rajouter password dans les parametres plus tard
+        const hashedPassword = await bcrypt.hash(userPassword, 10);
+        const user = await prisma.user.create({
           data : {
             email: userEmail,
+            password : hashedPassword,
             name : userName
-            //password : hashedPassword;
           }
         })
     }
 
     public async login(userEmail : string, password : string){// rajouter password dans les parametres plus tard
-        return await prisma.users.findUnique({
+        return await prisma.user.findUnique({
             where: {
                 email: userEmail,
               },
               select: {
                 id : true,
-                //password : true,
+                password : true,
               },
 
         });

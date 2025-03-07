@@ -12,16 +12,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Users {
+// Définir le modèle User
+model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
+  password String @unique
+  name  String
+  movies Movies[] // en relation avec un ou plusieurs films
 }
 
+// Définir le modèle Movie
 model Movies {
-  id Int @id @default(autoincrement())
-  title String 
-  description String?
+  id          Int    @id @default(autoincrement())
+  title       String
+  release_date String
+  overview    String
+  vote_average Int
+  userId      Int
+  user        User   @relation(fields: [userId], references: [id]) // en relation avec l'utilisateur
 }
 
 /*
@@ -30,6 +38,7 @@ model Movies {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
+  password String @unique
   name  String
   movies Movie[] // en relation avec un ou plusieurs films
 }
