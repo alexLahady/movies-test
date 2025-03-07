@@ -23,16 +23,26 @@ model User {
 
 // Définir le modèle Movie
 model Movies {
-  id          Int    @id @default(autoincrement())
-  title       String
-  release_date String
-  overview    String
-  vote_average Int
-  userId      Int
-  user        User   @relation(fields: [userId], references: [id]) // en relation avec l'utilisateur
+  id           Int      @id @default(autoincrement())
+  title        String
+  release_date DateTime
+  overview     String
+  vote_average Float
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 /*
+model Movie {
+  id           Int      @id @default(autoincrement())
+  title        String
+  release_date DateTime
+  overview     String
+  vote_average Float
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
+
 // A refaire correctement avant de migrate
 // Définir le modèle User
 model User {
