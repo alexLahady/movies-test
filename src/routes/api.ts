@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
                 overview: movie.overview,
                 vote_average: movie.vote_average, 
             }));
-            console.log(filteredData);
+            //console.log(filteredData);
             res.send(filteredData);
             //console.log(response.data)
             //res.send(response.data);

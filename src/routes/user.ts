@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
   //res.send(user); 
   if (user !== null) {
     //le cas ou le mdp existe
-    const isPasswordValid = await bcrypt.compare(password, user.password); //pour verifier le mdp
+    //const isPasswordValid = await bcrypt.compare(password, user.password); //pour verifier le mdp
     const encodedToken = jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET')
     //token avec jwt
     console.log(encodedToken);
