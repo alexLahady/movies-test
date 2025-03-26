@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { email, name, password } = req.body; // à changer
-  await userService.singnup(email, name,password);
+  await userService.singnup(email, name, password);
   res.sendStatus(201);
 })
 
@@ -27,14 +27,20 @@ router.post('/login', async (req, res) => {
   if (user !== null) {
     //le cas ou le mdp existe
     //const isPasswordValid = await bcrypt.compare(password, user.password); //pour verifier le mdp
-    const encodedToken = jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET')
+    const encodedToken = jwt.sign({ userId: user.id, userName :user.name }, 'RANDOM_TOKEN_SECRET')
     //token avec jwt
     console.log(encodedToken);
-    res.cookie('authToken', encodedToken, { maxAge: 900000, httpOnly: true });
+    res.cookie('authToken', encodedToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      maxAge: 3600000
+    });
   }
   else {
     console.log('Erreur');
   }
+  //res.status(200);
   res.send(user);
 })
 

@@ -23,14 +23,15 @@ export class UsersService {
         })
     }
 
-    public async login(userEmail : string, password : string){// rajouter password dans les parametres plus tard
-        return await prisma.user.findUnique({
+    public async login(userEmail : string, userPassword : string){// rajouter password dans les parametres plus tard
+        return await prisma.user.findFirst({
             where: {
                 email: userEmail,
+                password: userPassword,
               },
               select: {
                 id : true,
-                password : true,
+                name : true,
               },
 
         });
