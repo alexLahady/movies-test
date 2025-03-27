@@ -3,6 +3,7 @@ import { UsersService } from '@services/user';  // Importer le service des films
 import auth from '@utils/auth';
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
+import { console } from 'inspector';
 
 
 const router = express.Router();
@@ -31,10 +32,11 @@ router.post('/login', async (req, res) => {
     //token avec jwt
     console.log(encodedToken);
     res.cookie('authToken', encodedToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: 'None',
-      maxAge: 3600000
+      maxAge: 3600000,
+      path: '/' ,
     });
   }
   else {

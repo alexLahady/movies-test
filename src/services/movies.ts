@@ -1,19 +1,33 @@
 import { prisma } from "./prisma"
 
+interface Movie {
+    title: string;
+    overview: string;
+    release_date: string;
+    vote_average: number;
+}
+
 //a refaire avec un unique utilisateur
 export class MoviesService {
-    public async getAllById(userid : number) {
-        return await prisma.movies.findMany({
+    public async getAllMovieUser(movieUserId : number) {
+        return await prisma.user.findUnique({
             where : {
-                id : userid,
+                id : movieUserId,
+            },
+             select : {
+                movies : true,
             }
         });
     }
 
-    public async getOne(movieId : number) {
-        return await prisma.movies.findUnique({
-            where: {
-                id : movieId,
+    public async postMovie(userId : number, newMovie : Movie ) {
+        return await prisma.movies.create({
+            data: {
+                title: newMovie.title,
+                overview: newMovie.overview,
+                release_date: new Date(newMovie.release_date),
+                vote_average: newMovie.vote_average,
+                userId: userId, 
             },
         })
     }

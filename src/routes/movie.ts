@@ -5,15 +5,18 @@ import auth from '@utils/auth';
 const router = express.Router();
 const moviesService = new MoviesService();
 
-router.get('/', auth, async (req, res) => {
-    console.log({authUserId : req.auth.userId});
-    const allMovies = await moviesService.getAll();
-    res.send(allMovies);
+router.get('/user/:id', async (req, res) => {
+    //console.log({authUserId : req.auth.userId});
+    const movieId: number = parseInt(req.params.id, 10);
+    console.log(movieId);
+    const allMovies = await moviesService.getAllMovieUser(movieId);
+    res.json(allMovies);
 });
 
-router.get('/:id', async (req, res) => {
-    const movieId: number = parseInt(req.params.id, 10);
-    const movie = await moviesService.getOne(movieId);
+router.post('/:id', async (req, res) => {
+    const userId: number = parseInt(req.params.id, 10);
+    const movie = req.body;
+    await moviesService.postMovie(userId, movie);
     res.send(movie);
 });
 

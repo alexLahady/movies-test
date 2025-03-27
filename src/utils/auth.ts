@@ -8,7 +8,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface DecodedToken {
-  userId: string;
+  userId: number;
+  userName : string;
 }
 
 export default (req: Request, res: Response, next: NextFunction) => {
@@ -21,11 +22,13 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
     const decodedToken = jwt.verify(authToken, 'RANDOM_TOKEN_SECRET') as DecodedToken; //bug
     const userId = decodedToken.userId;
+    const userName = decodedToken.userName;
     console.log(userId);
 
     // ajouter l'ID de l'utilisateur à la requête
     req.auth = { // bug sur l'auth
       userId: userId,
+      userName : userName,
     };
 
     next();

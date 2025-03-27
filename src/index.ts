@@ -5,8 +5,17 @@ import bodyParser from "body-parser";
 import userRoutes from '@routes/user'; 
 import movieRoutes from '@routes/movie';
 import apiRoute from '@routes/api';
+import pro from '@routes/protected'
 
 import cookieParser from "cookie-parser";
+
+
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // Autorise uniquement les requêtes venant de ce domaine
+  credentials: true,  // Permet d'envoyer des cookies
+};
 
 dotenv.config();
 
@@ -16,16 +25,19 @@ const port = process.env.PORT || 3000;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
+/*
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", 'http://localhost:3000');
+  res.setHeader("Access-Control-Allow-Credentials", 'true');
   res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
-
+*/
 app.use('/', apiRoute);
+app.use('/pro',pro);
 app.use('/me/movies',movieRoutes);
 app.use('/users',userRoutes);
 

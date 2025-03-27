@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 export class UsersService {
     public async getById(userId: number) {
+      console.log('userId:', userId); 
         return await prisma.user.findUnique({
           where: {
             id: userId,
