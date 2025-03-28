@@ -14,18 +14,19 @@ export class UsersService {
     
     //améliorer pour eviter les doublons et mettre un mdp
     public async singnup(userEmail : string, userName  : string, userPassword : string){// rajouter password dans les parametres plus tard
-        const hashedPassword = await bcrypt.hash(userPassword, 10);
-        const user = await prisma.user.create({
+        //const hashedPassword = await bcrypt.hash(userPassword, 10);
+        return await prisma.user.create({
           data : {
             email: userEmail,
-            password : hashedPassword,
+            password : userPassword,
+            //password : hashedPassword,
             name : userName
           }
         })
     }
 
     public async login(userEmail : string, userPassword : string){// rajouter password dans les parametres plus tard
-        return await prisma.user.findFirst({
+        return await prisma.user.findUnique({
             where: {
                 email: userEmail,
                 password: userPassword,

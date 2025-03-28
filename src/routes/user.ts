@@ -17,8 +17,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { email, name, password } = req.body; // à changer
+  console.log(email,name,password);
   await userService.singnup(email, name, password);
-  res.sendStatus(201);
+  //res.sendStatus(201);
+  res.send("sa marche frère");
 })
 
 router.post('/login', async (req, res) => {
@@ -34,7 +36,7 @@ router.post('/login', async (req, res) => {
     res.cookie('authToken', encodedToken, {
       httpOnly: false,
       secure: true,
-      sameSite: 'None',
+      sameSite: 'none',
       maxAge: 3600000,
       path: '/' ,
     });

@@ -10,7 +10,7 @@ interface Movie {
 //a refaire avec un unique utilisateur
 export class MoviesService {
     public async getAllMovieUser(movieUserId : number) {
-        return await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where : {
                 id : movieUserId,
             },
@@ -18,9 +18,15 @@ export class MoviesService {
                 movies : true,
             }
         });
+        
+        if (!user || !user.movies) {
+            throw new Error("User or movies not found");
+        }
+
+        return user.movies;
     }
 
-    public async postMovie(userId : number, newMovie : Movie ) {
+    public async favorite(userId : number, newMovie : Movie ) {
         return await prisma.movies.create({
             data: {
                 title: newMovie.title,

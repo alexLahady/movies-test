@@ -6,6 +6,7 @@ import userRoutes from '@routes/user';
 import movieRoutes from '@routes/movie';
 import apiRoute from '@routes/api';
 import pro from '@routes/protected'
+import deleteUtils from '@routes/delete';
 
 import cookieParser from "cookie-parser";
 
@@ -40,6 +41,7 @@ app.use('/', apiRoute);
 app.use('/pro',pro);
 app.use('/me/movies',movieRoutes);
 app.use('/users',userRoutes);
+app.use('/delete', deleteUtils)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
