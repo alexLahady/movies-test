@@ -5,12 +5,20 @@ import { MoviesService } from '@services/movies';  // Importer le service des fi
 const router = express.Router();
 const moviesService = new MoviesService();
 
+/*
+title: 'asc', // Par ordre alphabétique
+date: 'desc', // Par date décroissante (plus récent d'abord)
+rating: 'desc', // Par note décroissante (meilleur d'abord)
+*/
+
 router.get('/user/:id', async (req, res) => {
-    //console.log({authUserId : req.auth.userId});
     const movieId: number = parseInt(req.params.id, 10);
-    console.log(movieId);
-    const allMovies = await moviesService.getAllMovieUser(movieId);
-    console.log(allMovies);
+    const sort = req.query.sort || 'title';
+    const order = req.query.order || 'asc';
+    //console.log(sort,order);
+
+    const allMovies = await moviesService.getAllMovieUser(movieId, sort as 'title' | 'release_date' | 'vote_average', order as 'asc' | 'desc');
+    //console.log(allMovies);
     res.json(allMovies);
 });
 

@@ -7,16 +7,21 @@ interface Movie {
     vote_average: number;
 }
 
-//a refaire avec un unique utilisateur
+type SortBy = 'title' | 'release_date' | 'vote_average';
+
 export class MoviesService {
-    public async getAllMovieUser(movieUserId : number) {
+    public async getAllMovieUser(movieUserId : number, sortBy: SortBy, order: 'asc' | 'desc' ) {
         const user = await prisma.user.findUnique({
             where : {
                 id : movieUserId,
             },
              select : {
-                movies : true,
-            }
+                movies : {
+                    orderBy : {
+                        [sortBy]: order,
+                    }
+                }
+            } 
         });
         
         if (!user || !user.movies) {
