@@ -12,14 +12,54 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Users {
+// Définir le modèle User
+model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
+  password String @unique
+  name  String
+  movies Movies[] // en relation avec un ou plusieurs films
 }
 
+// Définir le modèle Movie
 model Movies {
-  id Int @id @default(autoincrement())
-  title String 
-  description String?
+  id           Int      @id @default(autoincrement())
+  title        String
+  release_date DateTime
+  overview     String
+  vote_average Float
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
 }
+
+/*
+model Movie {
+  id           Int      @id @default(autoincrement())
+  title        String
+  release_date DateTime
+  overview     String
+  vote_average Float
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+// A refaire correctement avant de migrate
+// Définir le modèle User
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  password String @unique
+  name  String
+  movies Movie[] // en relation avec un ou plusieurs films
+}
+
+// Définir le modèle Movie
+model Movie {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  userId      Int
+  user        User   @relation(fields: [userId], references: [id]) // en relation avec l'utilisateur
+}
+
+*/
