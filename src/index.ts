@@ -15,12 +15,12 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.use(cookieParser());
-
+/*
 app.get("/", (req: Request, res: Response) => {
   res.cookie('cookieName', 'alex', { maxAge: 900000, httpOnly: true });
   res.send("Express + TypeScript Server caca");
 });
-
+*/
 app.get("/", async (req: Request, res: Response) => {
   const user = [{
     id: 0,
