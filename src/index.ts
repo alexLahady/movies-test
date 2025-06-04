@@ -24,8 +24,8 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/", async (req: Request, res: Response) => {
   const user = [{
     id: 0,
-    title: 'caca',
-    overview: 'pipi caca',
+    title: 'test',
+    overview: 'test vercel',
     release_date: '2025-05-05',
     vote_average: 9
   }]
@@ -36,3 +36,5 @@ app.get("/", async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+module.exports = app;
