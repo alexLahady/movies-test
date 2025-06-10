@@ -30,9 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
 app.get("/", async (req: Request, res: Response) => {
   const user = [{
     id: 0,
