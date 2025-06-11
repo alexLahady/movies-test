@@ -32,7 +32,7 @@ const corsOptions = {
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000; //quand je fais npm run dev
+//const port = process.env.PORT || 3000; //quand je fais npm run dev
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -51,12 +51,11 @@ app.use('/users',userRoutes);
 app.use('/delete', deleteUtils)
 
 //npm run dev
-
+/*
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
-
-
+*/
 export default app;
 //ameliorer Prisma pour faire un model relationel puis tester
 
