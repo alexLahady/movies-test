@@ -13,7 +13,7 @@ import cookieParser from "cookie-parser";
 const cors = require('cors');
 
 const allowedOrigins = [
-  'https://movie-test-vercel-delta.vercel.app',
+  'https://movie-react-steel.vercel.app',
 ];
 
 const corsOptions = {
@@ -38,11 +38,6 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
-
-app.use((req, res, next) => {
-  console.log('Requête 2 depuis :', req.headers.origin);
-  next();
-});
 
 
 app.use('/', apiRoute);
