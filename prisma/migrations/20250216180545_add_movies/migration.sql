@@ -27,3 +27,4 @@ CREATE TABLE "Movies" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+

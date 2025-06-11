@@ -1,26 +1,46 @@
+import { prisma } from "./prisma"
+
+interface Movie {
+    title: string;
+    overview: string;
+    release_date: string;
+    vote_average: number;
+}
+
+type SortBy = 'title' | 'release_date' | 'vote_average';
+
 export class MoviesService {
-    public static getAll() {
-        return [{
-            id: 46,
-            title: "Avatar - Voie de l'eau"
-        },
-        {
-            id: 84,
-            title: "Avatar - The last Airbender"
-        },]
+    public async getAllMovieUser(movieUserId : number, sortBy: SortBy, order: 'asc' | 'desc' ) {
+        const user = await prisma.user.findUnique({
+            where : {
+                id : movieUserId,
+            },
+             select : {
+                movies : {
+                    orderBy : {
+                        [sortBy]: order,
+                    }
+                }
+            } 
+        });
+        
+        if (!user || !user.movies) {
+            throw new Error("User or movies not found");
+        }
+
+        return user.movies;
     }
 
-    public static getOne() {
-        return {
-            id: 46,
-            title: "Avatar - Voie de l'eau"
-        }
+    public async favorite(userId : number, newMovie : Movie ) {
+        return await prisma.movies.create({
+            data: {
+                title: newMovie.title,
+                overview: newMovie.overview,
+                release_date: new Date(newMovie.release_date),
+                vote_average: newMovie.vote_average,
+                userId: userId, 
+            },
+        })
     }
 
-    public static getByUser(userId: string) {
-        return {
-            id: 84,
-            title: "Avatar - The last Airbender"
-        }
-    }
 }
