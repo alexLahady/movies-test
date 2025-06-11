@@ -35,6 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 */
+
 app.use('/', apiRoute);
 app.use('/pro',pro);
 app.use('/me/movies',movieRoutes);
