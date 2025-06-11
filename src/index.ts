@@ -12,29 +12,37 @@ import cookieParser from "cookie-parser";
 
 const cors = require('cors');
 
+const allowedOrigins = [
+  'https://movie-test-vercel-delta.vercel.app',
+];
+
 const corsOptions = {
-  origin: 'https://movie-test-vercel-delta.vercel.app', // Autorise uniquement les requêtes venant de ce domaine
-  credentials: true,  // Permet d'envoyer des cookies
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Autoriser
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 };
+
+
 
 dotenv.config();
 
 const app: Express = express();
-//const port = process.env.PORT || 3000; //quand je fais npm run dev
+const port = process.env.PORT || 3000; //quand je fais npm run dev
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-/*
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", 'true');
-  res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  console.log('Requête 2 depuis :', req.headers.origin);
   next();
 });
-*/
+
 
 app.use('/', apiRoute);
 app.use('/pro',pro);
@@ -43,11 +51,11 @@ app.use('/users',userRoutes);
 app.use('/delete', deleteUtils)
 
 //npm run dev
-/*
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
-*/
+
 
 export default app;
 //ameliorer Prisma pour faire un model relationel puis tester
