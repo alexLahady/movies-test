@@ -22,7 +22,6 @@ dotenv.config();
 const app: Express = express();
 //const port = process.env.PORT || 3000; //quand je fais npm run dev
 
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
