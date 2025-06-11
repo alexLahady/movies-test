@@ -1,6 +1,6 @@
 import express from 'express';
-import { UsersService } from '@services/user';  // Importer le service des films
-import auth from '@utils/auth';
+import { UsersService } from '../services/user';  // Importer le service des films
+import auth from '../utils/auth';
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { console } from 'inspector';

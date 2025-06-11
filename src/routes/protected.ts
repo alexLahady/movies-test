@@ -1,4 +1,4 @@
-import auth from '@utils/auth';
+import auth from '../utils/auth';
 import express from 'express';
 
 
@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.get('/pro',auth, async (req, res) => {
     if (!req.auth || !req.auth.userId || !req.auth.userName) {
-        return res.status(400).send('User information not found');
+        res.status(400).send('User information not found');
+        return;
       }
       const authUserId = req.auth.userId;
       const authName = req.auth.userName;

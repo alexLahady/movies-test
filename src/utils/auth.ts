@@ -12,12 +12,13 @@ interface DecodedToken {
   userName : string;
 }
 
-export default (req: Request, res: Response, next: NextFunction) => {
+export default (req: Request, res: Response, next: NextFunction): void => {
   try {
     const authToken = req.cookies.authToken;
     console.log(authToken)
     if (!authToken) {
-      return res.status(401).json({ error: 'token manquant' }); // bug sur le return
+      res.status(401).json({ error: 'token manquant' }); // bug sur le return
+      return; 
     }
 
     const decodedToken = jwt.verify(authToken, 'RANDOM_TOKEN_SECRET') as DecodedToken; //bug

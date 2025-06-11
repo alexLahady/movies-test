@@ -1,5 +1,5 @@
 import express from 'express';
-import { Delete } from '@services/delete';
+import { Delete } from '../services/delete';
 
 const router = express.Router();
 const deleteUtils = new Delete();

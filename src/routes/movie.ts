@@ -1,5 +1,5 @@
 import express from 'express';
-import { MoviesService } from '@services/movies';  // Importer le service des films
+import { MoviesService } from '../services/movies';  // Importer le service des films
 
 
 const router = express.Router();

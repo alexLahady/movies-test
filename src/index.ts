@@ -2,25 +2,25 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
-import userRoutes from '@routes/user'; 
-import movieRoutes from '@routes/movie';
-import apiRoute from '@routes/api';
-import pro from '@routes/protected'
-import deleteUtils from '@routes/delete';
+import userRoutes from './routes/user'; 
+import movieRoutes from './routes/movie';
+import apiRoute from './routes/api';
+import pro from './routes/protected'
+import deleteUtils from './routes/delete';
 
 import cookieParser from "cookie-parser";
 
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'https://movie-test-vercel-delta.vercel.app/', // Autorise uniquement les requêtes venant de ce domaine
+  origin: 'https://movie-test-vercel-delta.vercel.app', // Autorise uniquement les requêtes venant de ce domaine
   credentials: true,  // Permet d'envoyer des cookies
 };
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000; //quand je fais npm run dev
 
 
 app.use(cookieParser());
@@ -42,9 +42,13 @@ app.use('/me/movies',movieRoutes);
 app.use('/users',userRoutes);
 app.use('/delete', deleteUtils)
 
+//npm run dev
+/*
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+*/
 
+export default app;
 //ameliorer Prisma pour faire un model relationel puis tester
 

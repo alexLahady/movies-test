@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 
             const response = await axios.get(url, options);
 
-            const filteredData = response.data.results.map(movie => ({
+            const filteredData = response.data.results.map((movie:Movie) => ({
                 id: movie.id,
                 title: movie.title,
                 release_date: movie.release_date,
