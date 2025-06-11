@@ -18,6 +18,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    console.log('Requête 1 depuis :' + origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); // Autoriser
     } else {
