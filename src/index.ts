@@ -14,6 +14,8 @@ const cors = require('cors');
 
 const allowedOrigins = [
   'https://movie-react-steel.vercel.app',
+   'http://localhost:3000/',
+
 ];
 
 const corsOptions = {
