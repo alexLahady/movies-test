@@ -13,9 +13,10 @@ rating: 'desc', // Par note décroissante (meilleur d'abord)
 
 router.get('/user/:id', async (req, res) => {
     const movieId: number = parseInt(req.params.id, 10);
+    console.log(movieId);
     const sort = req.query.sort || 'title';
     const order = req.query.order || 'asc';
-    //console.log(sort,order);
+    console.log(sort,order);
 
     const allMovies = await moviesService.getAllMovieUser(movieId, sort as 'title' | 'release_date' | 'vote_average', order as 'asc' | 'desc');
     //console.log(allMovies);

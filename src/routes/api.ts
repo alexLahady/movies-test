@@ -2,6 +2,7 @@ import express from 'express';
 import axios, { AxiosRequestConfig } from 'axios';
 
 import dotenv from 'dotenv';
+import { console } from 'inspector';
 
 dotenv.config();
 const router = express.Router();
@@ -18,10 +19,21 @@ const options: AxiosRequestConfig = {
 type Movie = {
     id: number;
     title: string;
+    poster_path : string;
     release_date: string;
     overview: string;
     vote_average: number;
 };
+
+/*
+rajotuer la partie poster path qui existait deja dans la base de l'api 
+"poster_path": "/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg",
+https://image.tmdb.org/t/p/w500/lbimIPTVsSlnmqSW5ngEsUxtHLM.jpg
+
+il faut jsute rajouter le lien après w500
+donc faire une modification quand on va l'enregistrer et evidemment changer la base de donné pour qu'il contient que le lien des films enregistrer
+*/
+
 
 router.get('/', async (req, res) => {
     try {
@@ -35,6 +47,7 @@ router.get('/', async (req, res) => {
             const filteredData = response.data.results.map((movie:Movie) => ({
                 id: movie.id,
                 title: movie.title,
+                poster_path : "https://image.tmdb.org/t/p/w500" + movie.poster_path, //poster_path // rajouter et modifier
                 release_date: movie.release_date,
                 overview: movie.overview,
                 vote_average: movie.vote_average,
