@@ -15,11 +15,11 @@ router.post('/logout', (req, res) => {
 });
 
 
-router.delete('/movie', (req, res) => {
+router.delete('/movie', async (req, res) => {
   const {userId , title} = req.body;
   //console.log(userId,title);
   //console.log(typeof userId, typeof title);
-  deleteUtils.movieUserDelete(userId,title);
+  await deleteUtils.movieUserDelete(userId,title);
   res.status(200).json({message: 'film bien supprimé'})
 })
 
